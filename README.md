@@ -21,6 +21,7 @@ Instalacion:
    - **php artisan db:seed --class=ArtistInsert** //Script que procesa un ** public/artist_list.csv ** que inserta en la db
    - **php artisan serve**
    - ** URL API : http://127.0.0.1:8000/ **
+ 
 3- Endpoints:
    - **/songs** :
      + method: GET
