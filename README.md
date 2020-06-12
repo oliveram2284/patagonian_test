@@ -15,7 +15,7 @@ Instalacion:
    SPOTIFY_CALLBACK_URL=** XXXXXXXXXXXXX **
    
 2- Desde la consola de comando posicionado en el root del proyecto ejecutar los siguientes comandos:
-   - **composer install**
+   - **composer update**
    - **npm install**
    - **php artisan migrate**  //Crea las tablas en la db
    - **php artisan db:seed --class=ArtistInsert** //Script que procesa un ** public/artist_list.csv ** que inserta en la db
