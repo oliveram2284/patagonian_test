@@ -21,7 +21,7 @@ class MainController extends Controller
     }
 
     public function index(Request $request){
-        return response()->json(["Lumen Api Test"]);
+        return response()->json(["Technical Review - Backend Developer"]);
     }
     public function songs(Request $request){
         try{
