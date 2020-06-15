@@ -23,33 +23,28 @@ class MainController extends Controller
     public function index(Request $request){
         return response()->json(["Technical Review - Backend Developer"]);
     }
+
     public function songs(Request $request){
+
         try{
-            if(!isset($request->header()['artistname'])){
+            
+            if(!isset($request->header()['artistname'][0])){
                 return response()->json(['status' => 400, 'error' => "artistName is required"]);
             }else{
-                if(strlen($request->header()['artistname'])<3){
+                if(strlen($request->header()['artistname'][0])<3){
                     return response()->json(['status' => 400, 'error' => "artistName require 3 characters minimum"]);
                 }
             }
             
-            $artists = \App\Artist::where('name', 'like', '%' . $request->header()['artistname'][0] . '%')->get();
-            if(empty($artists)){
+            $artist = \App\Artist::where('name', 'like', '%' . $request->header()['artistname'][0] . '%')->first();
+            if(empty($artist)){
                 return response()->json(['status' => 400, 'error' => "Artist was not found"]);
             }
-
-            $songs = [];
-
-            foreach($artists as $art){
-
-                foreach($art->songs as $song){
-                    $songs[] = [
-                        'songId' => $song->songId,
-                        'songTitle' => $song->songTitle
-                    ];
-                }
-                
+           
+            if($artist->songs->count()>0){
+                $songs = $artist->songs()->select(['id as songId','songTitle'])->paginate(20);
             }
+
             return response()->json(['songs'=>$songs]);
         }catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400); 
